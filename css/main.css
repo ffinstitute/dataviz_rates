@@ -2,5 +2,29 @@
 /* sorry but i want to make sure it fit nicely in the edx courseware */
 .container {
     margin: 0 auto;
-    max-width: 750px;
+    max-width: 900px;
 }
+
+
+
+input.rate{
+	height:20;
+	width:50;
+	border:0;
+	padding-right:0px;
+	padding-left:0px;
+	color:#888;
+	border-radius: 0px!important;
+	text-align: right;
+}
+
+.table-inputs tr{
+	font-size:12px;
+}
+
+.r{text-align: right}
+
+svg{
+	background-color:red;
+}
+
