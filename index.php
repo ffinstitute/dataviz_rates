@@ -17,7 +17,6 @@
 	<script src="./lib/bootstrap.js"></script>
 	<script src="./lib/d3.v3.min.js"></script>
 	<script src="./js/main.js"></script>
-	<script src="./js/ratecurve.js"></script>
 
 </head>
 
@@ -27,130 +26,133 @@
 
 	<h1><a href='https://first-finance.institute' target=_blank><img src='img/logo_ffi_48px.png' title='First Finance Institute' width=32 style="vertical-align: top"></a> Dataviz rates</h1>
 	<hr />
-	<?php 
-	//https://docs.google.com/spreadsheets/d/1xwRvPs14zlTLQFlQmVg1KRoVQ2YUyLPFqWztVqwC2_o/edit#gid=0
-	?>
 	
-
 	<div class=row>
-		<div class='col-sm-6'>
+
+		<div class='col-sm-4'>
 			Start date : <input type=date id=startDate>
 		</div>
+		
+		<div class='col-sm-4'>
+		
+			<div class='col-xs-6'>
+				<b style='color:#cc0000'>Money rates</b>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsA" id="optionsRadios1" value="option1" checked>
+				    act/360
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsA" id="optionsRadios2" value="option2">
+				    act/365
+				  </label>
+				</div>
+			</div>
+
+			<div class='col-xs-6'>
+				<b style='color:#cc0000'>Swap rates</b>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsB" id="optionsRadios1" value="option1" checked>
+				    30/360
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsB" id="optionsRadios2" value="option2">
+				    act/360
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsB" id="optionsRadios2" value="option2">
+				    act/365
+				  </label>
+				</div>
+			</div>
+		</div>
+	
+		
+		<div class='col-sm-4'>
+			
+			<div class='col-xs-6'>
+				<b>Money rates</b>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsC" id="optionsRadios1" value="option1" checked>
+				    act/360
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsC" id="optionsRadios2" value="option2">
+				    act/365
+				  </label>
+				</div>
+			</div>
+
+			<div class='col-xs-6'>
+				<b>Swap rates</b>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsD" id="optionsRadios1" value="option1" checked>
+				    30/360
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsD" id="optionsRadios2" value="option2">
+				    act/360
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="optionsD" id="optionsRadios2" value="option2">
+				    act/365
+				  </label>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<hr />
 
 	<div class=row>
-		<div class='col-xs-3'>
-			<b>Money rates</b>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsA" id="optionsRadios1" value="option1" checked>
-			    act/360
-			  </label>
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsA" id="optionsRadios2" value="option2">
-			    act/365
-			  </label>
-			</div>
-		</div>
-
-		<div class='col-xs-3'>
-			<b>Swap rates</b>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsB" id="optionsRadios1" value="option1" checked>
-			    30/360
-			  </label>
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsB" id="optionsRadios2" value="option2">
-			    act/360
-			  </label>
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsB" id="optionsRadios2" value="option2">
-			    act/365
-			  </label>
-			</div>
-		</div>
-
-		<div class='col-xs-3'>
-			<b>Money rates</b>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsC" id="optionsRadios1" value="option1" checked>
-			    act/360
-			  </label>
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsC" id="optionsRadios2" value="option2">
-			    act/365
-			  </label>
-			</div>
-		</div>
-
-		<div class='col-xs-3'>
-			<b>Swap rates</b>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsD" id="optionsRadios1" value="option1" checked>
-			    30/360
-			  </label>
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsD" id="optionsRadios2" value="option2">
-			    act/360
-			  </label>
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="optionsD" id="optionsRadios2" value="option2">
-			    act/365
-			  </label>
-			</div>
-		</div>
-	</div>
-
-	<hr />
-
-	<div class=row>
-		<div class='col-sm-6'>
-			<table width=100% id=tableA class='table-striped table-inputs'>
+		<div class='col-xs-12'>
+			<table width=100% id=tableA class='table-hover table-inputs'>
 				<thead>
-					<th width=40>t</th>
-					<th width=60>Date</th>
-					<th>Rate %</th>
-					<th width=40>#days</th>
-					<th>Disc.F</th>
+					<th width=35>t</th>
+					<th class=center>#days</th>
+					<th width=60 style='color:#cc0000'>Rate %</th>
+					
+					<th width=100 style='color:#cc0000' class='r'>Discount Factor</th>
+					
+					<th>&nbsp;</th>
+					
+					<th width=60 style='color:#000000'>Rate %</th>
+					
+					<th width=100 style='color:#000000' class='r'>Discount Factor</th>
 				</thead>
 				<tbody>
-					<tr><td>3m<td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>92 <td class='r'>df
-					<tr><td>6m<td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>92 <td class='r'>df
-					<tr><td>9m<td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>100<td class='r'>df
-					<tr><td>1 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>102<td class='r'>df
-					<tr><td>2 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>105<td class='r'>df
-					<tr><td>3 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>110<td class='r'>df
-					<tr><td>4 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>123<td class='r'>df
-					<tr><td>5 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>154<td class='r'>df
-					<tr><td>6 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>155<td class='r'>df
-					<tr><td>7 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>160<td class='r'>df
-					<tr><td>8 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>170<td class='r'>df
-					<tr><td>9 <td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>180<td class='r'>df
-					<tr><td>10<td>2016-01-01<td><input type=text class='form-control rate' value='2.50'><td class='r'>190<td class='r'>df
+					<tr><td title='3months'>3m<td title='calculated date'>92 <td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516699
+					<tr><td>6m<td>92 <td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>9m<td>100<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>1 <td>102<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>2 <td>105<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>3 <td>110<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>4 <td>123<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>5 <td>154<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>6 <td>155<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>7 <td>160<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>8 <td>170<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>9 <td>180<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
+					<tr><td>10<td>190<td><input type=text class='form-control rate' value='2.50'><td class='r'>0,9936516
 				</tbody>
 			</table>
 		</div>
 
-		<div class='col-sm-6'>
-			Col-B
-		</div>
+
 	</div>
 	
 	<hr />
@@ -158,6 +160,8 @@
 	<div class=row>
 		<div class='col-sm-6' id=graphA>
 			Graph-A (rate curves)
+			Xscale -> days
+			Xscale ticks are "3m, 6m, 9m, 1Year, 2Y, etc"
 		</div>
 
 		<div class='col-sm-6' id=graphB>
@@ -168,8 +172,27 @@
 	<hr />
 	
 	<div class=row>
-		<pre>https://docs.google.com/spreadsheets/d/1xwRvPs14zlTLQFlQmVg1KRoVQ2YUyLPFqWztVqwC2_o/edit#gid=0</pre>
+		<!--
+		Calculation reference:
+		https://docs.google.com/spreadsheets/d/1xwRvPs14zlTLQFlQmVg1KRoVQ2YUyLPFqWztVqwC2_o/edit#gid=0
+
+		Color ref:
+		Blue:#4986DB
+		Red:#cc0000
+		-->
 	</div>
+
+<select class=form-control>
+<option>30/360</option>
+<option>act/360</option>
+<option>act/365</option>
+</select>
+
+<select class=form-control size=3>
+<option>30/360</option>
+<option>act/360</option>
+<option>act/365</option>
+</select>
 
 </div>
 
