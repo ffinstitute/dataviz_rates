@@ -10,6 +10,10 @@ input.rate {
     border-top-width: 0;
 }
 
+#tableA thead tr.space td {
+    padding-bottom: 10px;
+}
+
 #tableA tbody tr:first-of-type input.rate {
     border-top-width: 1px;
     border-radius: 4px 4px 0 0;
@@ -24,14 +28,19 @@ input.rate {
     font-size: 12px;
 }
 
-#tableA thead > tr {
-    height: 24px;
-    vertical-align: top;
+#tableA thead > tr:last-child th {
+    padding-bottom: 5px;
 }
 
 #tableA th, #tableA td {
     padding: 0 4px;
     font-size: 12px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+input#startDate {
+    width: 88px;
 }
 
 .table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th {
