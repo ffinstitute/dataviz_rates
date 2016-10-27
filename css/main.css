@@ -1,30 +1,52 @@
-
 /* sorry but i want to make sure it fit nicely in the edx courseware */
 .container {
-    margin: 0 auto;
     max-width: 700px;
 }
 
-
-
-input.rate{
-	height:20;
-	width:50;
-	/*border:0;*/
-	padding-right:0px;
-	padding-left:0px;
-	color:#888;
-	border-radius: 0px!important;
-	text-align: right;
+input.rate {
+    padding-right: 3px;
+    border-radius: 0;
+    text-align: right;
+    border-top-width: 0;
 }
 
-.table-inputs tr{
-	font-size:12px;
+#tableA tbody tr:first-of-type input.rate {
+    border-top-width: 1px;
+    border-radius: 4px 4px 0 0;
 }
 
-.r{text-align: right}
+#tableA tbody tr:last-of-type input.rate {
+    border-radius: 0 0 4px 4px;
+}
 
-svg{
-	background-color:red;
+#tableA .form-control {
+    height: 25px;
+    font-size: 12px;
+}
+
+#tableA thead > tr {
+    height: 24px;
+    vertical-align: top;
+}
+
+#tableA th, #tableA td {
+    padding: 0 4px;
+    font-size: 12px;
+}
+
+.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th {
+    background-color: #e5e5e5;
+}
+
+.red {
+    color: #cc0000;
+}
+
+.blue {
+    color: #4986db;
+}
+
+svg {
+    background-color: red;
 }
 
