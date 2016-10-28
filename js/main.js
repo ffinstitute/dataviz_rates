@@ -38,19 +38,19 @@ var rates = (function () {
         var template = $('#template-table-row').html();
         Mustache.parse(template);
         var data = [
-            {m: "3", t: "3m", t_full: "3 months"},
-            {m: "6", t: "6m", t_full: "6 months"},
-            {m: "9", t: "9m", t_full: "9 months"},
-            {y: "1", t: "1", t_full: "1 year"},
-            {y: "2", t: "2", t_full: "2 years"},
-            {y: "3", t: "3", t_full: "3 years"},
-            {y: "4", t: "4", t_full: "4 years"},
-            {y: "5", t: "5", t_full: "5 years"},
-            {y: "6", t: "6", t_full: "6 years"},
-            {y: "7", t: "7", t_full: "7 years"},
-            {y: "8", t: "8", t_full: "8 years"},
-            {y: "9", t: "9", t_full: "9 years"},
-            {y: "10", t: "10", t_full: "10 years"}
+            {m: "3", t: "3m", t_full: "3 months", rate_a: "2.50", rate_b: "3.50"},
+            {m: "6", t: "6m", t_full: "6 months", rate_a: "2.60", rate_b: "3.60"},
+            {m: "9", t: "9m", t_full: "9 months", rate_a: "2.65", rate_b: "3.65"},
+            {y: "1", t: "1", t_full: "1 year", rate_a: "2.70", rate_b: "3.70"},
+            {y: "2", t: "2", t_full: "2 years", rate_a: "3.20", rate_b: "4.20"},
+            {y: "3", t: "3", t_full: "3 years", rate_a: "3.60", rate_b: "4.60"},
+            {y: "4", t: "4", t_full: "4 years", rate_a: "3.90", rate_b: "4.90"},
+            {y: "5", t: "5", t_full: "5 years", rate_a: "4.20", rate_b: "5.20"},
+            {y: "6", t: "6", t_full: "6 years", rate_a: "4.70", rate_b: "5.70"},
+            {y: "7", t: "7", t_full: "7 years", rate_a: "5.30", rate_b: "6.30"},
+            {y: "8", t: "8", t_full: "8 years", rate_a: "5.60", rate_b: "6.60"},
+            {y: "9", t: "9", t_full: "9 years", rate_a: "5.60", rate_b: "6.60"},
+            {y: "10", t: "10", t_full: "10 years", rate_a: "5.60", rate_b: "6.60"}
         ];
         var rendered = data.map(function (t) {
             return Mustache.render(template, t);
@@ -75,12 +75,15 @@ var rates = (function () {
             /**
              *  Calculate "#days"
              */
-            var days = 0;
+            var days = 0,
+                elapsed_days = 0;
             var date = plusDate(start_date, m, y);
             $this.find('.days').attr('title', toDateString(date));
             $this.data('date', date);
+            total_days = parseInt((date.getTime() - start_date.getTime()) / 1000 / 3600 / 24);
+
             if (m || y == 1) {
-                days = parseInt((date.getTime() - start_date.getTime()) / 1000 / 3600 / 24);
+                days = total_days;
             } else if (y) {
                 days = parseInt((date.getTime() - previous_date.getTime()) / 1000 / 3600 / 24);
             }
@@ -125,9 +128,10 @@ var rates = (function () {
                 $this.find('.rate.b').addClass("error");
             }
 
-            // store DF & rates into <tr> DOM
+            // store DF & rates & total_days into <tr> DOM
             $this.data('rates', rates);
             $this.data('DF', DF);
+            $this.data('total_days', total_days);
         });
     }
 
@@ -214,7 +218,7 @@ var rates = (function () {
         if (Number(text) != parseFloat(text)) return false;
         var pct = parseFloat(text);
         if (pct < 0 || pct > 100) return false;
-        return true;
+        return pct;
     }
 
     /**
@@ -226,6 +230,7 @@ var rates = (function () {
         initiateDate();
         constructTable();
         updateTable();
+        graph.create();
 
         // register listeners
         $('input.rate, .options select').on('input', function () {

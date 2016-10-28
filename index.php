@@ -102,49 +102,50 @@
         <div class="col-xs-12">
             <h4 class="text-center">Graph Rates/DF</h4>
             <svg id="graph" width="100%" height="300"></svg>
-    </div>
-
-    <hr/>
-
-    <div class="row float">
-        <style>
-            .float {
-                position: fixed;
-                bottom: 50px;
-                background: rgba(255, 0, 0, 0.3);
-            }
-        </style>
-        <div class='col-xs-12' id=graphA>
-            Graph-A (rate curves)
-            Xscale -> days
-            Xscale ticks are "3m, 6m, 9m, 1Year, 2Y, etc"
-            <br>
-            Graph-B (discount factors)
         </div>
 
-        <p class="col-xs-12">
-            <a href="https://docs.google.com/spreadsheets/d/1xwRvPs14zlTLQFlQmVg1KRoVQ2YUyLPFqWztVqwC2_o/edit#gid=0"
-               target="_blank">Calculation
-                reference</a>
-            <br/>
-            Color ref:
-            Blue:#4986DB
-            Red:#cc0000
-        </p>
+        <hr/>
+
+        <div class="row float">
+            <style>
+                .float {
+                    position: fixed;
+                    bottom: 0px;
+                    background: rgba(255, 0, 0, 0.3);
+                    font-size:10px;
+                }
+            </style>
+            <div class='col-xs-12' id=graphA>
+                Graph-A (rate curves)
+                Xscale -> days
+                Xscale ticks are "3m, 6m, 9m, 1Year, 2Y, etc"
+                <br>
+                Graph-B (discount factors)
+            </div>
+
+            <p class="col-xs-12">
+                <a href="https://docs.google.com/spreadsheets/d/1xwRvPs14zlTLQFlQmVg1KRoVQ2YUyLPFqWztVqwC2_o/edit#gid=0"
+                   target="_blank">Calculation
+                    reference</a>
+                <br/>
+                Color ref:
+                Blue:#4986DB
+                Red:#cc0000
+            </p>
+        </div>
+
     </div>
 
-</div>
-
-<script id="template-table-row" type="x-tmpl-mustache">
+    <script id="template-table-row" type="x-tmpl-mustache">
 <tr data-m="{{ m }}" data-y="{{ y }}" data-t="{{ t }}">
     <td class="t" title="{{ t_full }}">{{ t }}</td>
     <td class="days text-center"></td>
-    <td class="input"><input type="text" class="form-control rate a" tabindex="1" value="2.50" maxlength="5"></td>
+    <td class="input"><input type="text" class="form-control rate a" tabindex="1" value="{{ rate_a }}" maxlength="5"></td>
     <td class="df a text-right">0.0000000000</td>
-    <td class="input"><input type="text" class="form-control rate b" tabindex="2" value="2.50" maxlength="5"></td>
+    <td class="input"><input type="text" class="form-control rate b" tabindex="2" value="{{ rate_b }}" maxlength="5"></td>
     <td class="df b text-right">0.0000000000</td>
 </tr>
-</script>
+    </script>
 
 </body>
 </html>
