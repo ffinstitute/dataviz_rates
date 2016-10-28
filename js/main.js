@@ -1,17 +1,7 @@
-// Dataviz Rates
-var svgA;
-var svgB;
-var color = d3.scale.category20c();
-
-
+/**
+ * Dataviz Rates
+ */
 var rates = (function () {
-    /*
-     svg = d3.select("#graph1").append("svg")
-     .attr("width", width)
-     .attr("height", height);
-     getData();
-     refresh();//compute and redraw graph
-     */
     console.info('main.js');
 
     function getStartDate() {
@@ -101,26 +91,49 @@ var rates = (function () {
              * Calculate DF
              */
             var options = getOptions();
-            var DF = {a: 0, b: 0};
+            var DF = {a: 0, b: 0},
+                rates = {
+                    a: validatePercentage($this.find('.rate.a').val()),
+                    b: validatePercentage($this.find('.rate.b').val())
+                };
             if (m) {
                 // money rates
-                $this.find('.df.a').text(calculateMoneyDF($this.find('.rate.a').val(), days, options.a.money));
-                $this.find('.df.b').text(calculateMoneyDF($this.find('.rate.b').val(), days, options.b.money));
+                DF['a'] = calculateMoneyDF(rates['a'], days, options.a.money);
+                DF['b'] = calculateMoneyDF(rates['b'], days, options.b.money);
             } else if (y) {
-
-                DF['a'] = calculateSwapDF($this.find('.rate.a').val(), days, previous_DF_sum['a'], previous_DF_mul_days_sum['a'], options.a.swap);
-                DF['b'] = calculateSwapDF($this.find('.rate.b').val(), days, previous_DF_sum['b'], previous_DF_mul_days_sum['b'], options.b.swap);
-
-                $this.find('.df.a').text(DF['a'].toFixed(10));
-                $this.find('.df.b').text(DF['b'].toFixed(10));
+                // swap rates
+                DF['a'] = calculateSwapDF(rates['a'], days, previous_DF_sum['a'], previous_DF_mul_days_sum['a'], options.a.swap);
+                DF['b'] = calculateSwapDF(rates['b'], days, previous_DF_sum['b'], previous_DF_mul_days_sum['b'], options.b.swap);
 
                 previous_DF_sum['a'] += DF['a'];
                 previous_DF_sum['b'] += DF['b'];
                 previous_DF_mul_days_sum['a'] += DF['a'] * days;
                 previous_DF_mul_days_sum['b'] += DF['b'] * days;
             }
+
+            // fill DF into table
+            if (DF['a']) {
+                $this.find('.df.a').text(DF['a'].toFixed(10));
+                $this.find('.rate.a').removeClass("error");
+            } else {
+                $this.find('.rate.a').addClass("error");
+            }
+            if (DF['b']) {
+                $this.find('.df.b').text(DF['b'].toFixed(10));
+                $this.find('.rate.b').removeClass("error");
+            } else {
+                $this.find('.rate.b').addClass("error");
+            }
+
+            // store DF & rates into <tr> DOM
+            $this.data('rates', rates);
+            $this.data('DF', DF);
         });
     }
+
+    /**
+     * Calculation & helper functions
+     */
 
     function calculateMoneyDF(rate_pc, days, option) {
         option = option.trim().toLowerCase();
@@ -142,7 +155,7 @@ var rates = (function () {
                 return false;
         }
 
-        return (1 / (1 + rate * days / d)).toFixed(10);
+        return (1 / (1 + rate * days / d));
     }
 
     function calculateSwapDF(rate_pc, days, previous_DF_sum, previous_DF_mul_days_sum, option) {
@@ -196,6 +209,18 @@ var rates = (function () {
         }
     }
 
+    function validatePercentage(text) {
+        if (!text) return false;
+        if (Number(text) != parseFloat(text)) return false;
+        var pct = parseFloat(text);
+        if (pct < 0 || pct > 100) return false;
+        return true;
+    }
+
+    /**
+     * Main procedure
+     */
+
     $(document).ready(function () {
         // initiate
         initiateDate();
@@ -207,10 +232,17 @@ var rates = (function () {
             console.info('Date Updated');
             updateTable();
         });
+
+        $('input.rate').focusout(function () {
+            var val = $(this).val();
+            val = validatePercentage(val) ? parseFloat(val) : 2.5;
+            $(this).val(val.toFixed(2));
+        });
+
         $('input#startDate').on('change', function () {
             console.info('Date Updated');
             updateTable();
-        })
+        });
     });
 
     return {

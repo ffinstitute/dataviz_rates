@@ -41,12 +41,25 @@ input.rate {
     white-space: nowrap;
 }
 
+#tableA tbody td.df {
+    width: 100px;
+}
+
+#tableA tbody td.input {
+    width: 63px;
+}
+
 input#startDate {
     width: 88px;
 }
 
-.table-hover>tbody>tr:hover>td,.table-hover>tbody>tr:hover>th {
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
     background-color: #e5e5e5;
+}
+
+input.error {
+    color: white;
+    background-color: #cc0000;
 }
 
 .red {
