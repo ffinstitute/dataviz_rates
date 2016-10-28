@@ -19,6 +19,7 @@
     <script src="lib/bootstrap.js"></script>
     <script src="lib/d3.v3.min.js"></script>
     <script src="lib/bootstrap-datepicker.min.js"></script>
+    <script src="lib/mustache.min.js"></script>
     <script src="js/main.js"></script>
 
 </head>
@@ -38,23 +39,19 @@
                 <thead>
                 <tr class="options">
                     <td rowspan="2">
-                        <label for="startDate">Start date:</label><input type="text" class="form-control"
-                                                                         id="startDate">
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#startDate').datepicker();
-                            });
-                        </script>
+                        <label for="startDate">Start date:</label>
+                        <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy"
+                               data-date-autoclose="true" id="startDate">
                     </td>
                     <th class="text-right">Money Rates</th>
                     <td colspan="2" class="text-center">
-                        <select class="red form-control">
+                        <select class="money red a form-control">
                             <option>act/360</option>
                             <option>act/365</option>
                         </select>
                     </td>
                     <td colspan="2" class="text-center">
-                        <select class="blue form-control">
+                        <select class="money blue b form-control">
                             <option>act/360</option>
                             <option>act/365</option>
                         </select>
@@ -64,14 +61,14 @@
                 <tr class="options">
                     <th class="text-right">Swap Rates</th>
                     <td colspan="2" class="text-center">
-                        <select class="red form-control">
+                        <select class="swap red a form-control">
                             <option>30/360</option>
                             <option>act/360</option>
                             <option>act/365</option>
                         </select>
                     </td>
                     <td colspan="2" class="text-center">
-                        <select class="blue form-control">
+                        <select class="swap blue b form-control">
                             <option>30/360</option>
                             <option>act/360</option>
                             <option>act/365</option>
@@ -83,7 +80,7 @@
                 </tr>
                 <tr>
                     <th>t</th>
-                    <th class="text-center">#days</th>
+                    <th width="100%" class="text-center">#days</th>
                     <th width="60" class="red">Rate %</th>
                     <th width="100" class="red">Discount Factor</th>
                     <th width="60" class="blue">Rate %</th>
@@ -91,110 +88,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td title="3months">3m</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>6m</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>9m</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50" autocomplete="off"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td class="text-center">92</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                    <td><input type="text" class="form-control rate" value="2.50"></td>
-                    <td class="text-right">0,9936516699</td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -228,6 +121,20 @@
         Red:#cc0000
 
 </div>
+
+<script id="template-table-row" type="x-tmpl-mustache">
+    <tr data-m="{{ m }}" data-y="{{ y }}">
+        <td class="t" title="{{ t_full }}">{{ t }}</td>
+        <td class="days text-center"></td>
+        <td><input type="text" class="form-control rate a" value="2.50"></td>
+        <td class="df a text-right">0.0000000000</td>
+        <td><input type="text" class="form-control rate b" value="2.50"></td>
+        <td class="df b text-right">0.0000000000</td>
+    </tr>
+
+
+
+</script>
 
 </body>
 </html>
