@@ -126,9 +126,9 @@
     <tr data-m="{{ m }}" data-y="{{ y }}">
         <td class="t" title="{{ t_full }}">{{ t }}</td>
         <td class="days text-center"></td>
-        <td><input type="text" class="form-control rate a" value="2.50"></td>
+        <td><input type="text" class="form-control rate a" tabindex="1" value="2.50"></td>
         <td class="df a text-right">0.0000000000</td>
-        <td><input type="text" class="form-control rate b" value="2.50"></td>
+        <td><input type="text" class="form-control rate b" tabindex="2" value="2.50"></td>
         <td class="df b text-right">0.0000000000</td>
     </tr>
 
