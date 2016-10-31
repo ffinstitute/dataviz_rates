@@ -19,7 +19,7 @@ var graph = (function () {
         yDF = d3.scaleLinear().range([svg_height - margin.bottom, (svg_height - margin.bottom + margin.top + margin.middle) / 2]);
 
         // Define the axes
-        xAxis = d3.axisBottom(x).ticks(13);
+        xAxis = d3.axisBottom(x);
         yRateAxis = d3.axisLeft(yRate);
         yDFAxis = d3.axisLeft(yDF);
 
@@ -49,9 +49,9 @@ var graph = (function () {
         var cooked_data = getData();
 
         // Set domain
-        x.domain(d3.extent(cooked_data, function (d) {
+        x.domain([0, d3.max(cooked_data, function (d) {
             return d.x;
-        }));
+        })]);
 
         yRate.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
             return [d.rateA, d.rateB];
@@ -60,6 +60,13 @@ var graph = (function () {
         yDF.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
             return [d.DFA, d.DFB];
         }))));
+
+        // Set axis ticks
+        xAxis.tickValues(cooked_data.map(function (d) {
+            return d.x;
+        })).tickFormat(function (d, i) {
+            return cooked_data[i].t;
+        });
 
         // Draw graph
         var line_rate_a = svg.append("path")
@@ -105,6 +112,72 @@ var graph = (function () {
             .attr("transform", "translate(" + (margin.left) + ",0)")
             .call(yDFAxis);
     }
+
+    function update() {
+        init();
+
+        var cooked_data = getData();
+
+        // Set domain
+        x.domain([0, d3.max(cooked_data, function (d) {
+            return d.x;
+        })]);
+
+        yRate.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
+            return [d.rateA, d.rateB];
+        }))));
+
+        yDF.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
+            return [d.DFA, d.DFB];
+        }))));
+
+        // Set axis ticks
+        xAxis.tickValues(cooked_data.map(function (d) {
+            return d.x;
+        })).tickFormat(function (d, i) {
+            return cooked_data[i].t;
+        });
+
+        /**
+         * Change graph
+         */
+        var svg = d3.select("svg#graph").transition().duration(750);
+
+        // Change curves
+        svg.select(".line.rate.a")
+            .attr("d", lineRate(cooked_data.map(function (d) {
+                return {x: d.x, rate: d.rateA};
+            })));
+
+        svg.select(".line.rate.b")
+            .attr("d", lineRate(cooked_data.map(function (d) {
+                return {x: d.x, rate: d.rateB};
+            })));
+
+        svg.select(".line.DF.a")
+            .attr("d", lineDF(cooked_data.map(function (d) {
+                return {x: d.x, DF: d.DFA};
+            })));
+
+        svg.select(".line.DF.b")
+            .attr("d", lineDF(cooked_data.map(function (d) {
+                return {x: d.x, DF: d.DFB};
+            })));
+
+        // Change dots
+        updateOrCreateDots(cooked_data);
+
+        // Change axis
+        svg.select(".x.axis")
+            .call(xAxis);
+
+        svg.select(".y.rate.axis")
+            .call(yRateAxis);
+
+        svg.select(".y.DF.axis")
+            .call(yDFAxis);
+    }
+
 
     function updateOrCreateDots(cooked_data) {
         var normal_radius = 2,
@@ -179,64 +252,6 @@ var graph = (function () {
             .attr("class", "DF dot");
     }
 
-    function update() {
-        init();
-
-        var cooked_data = getData();
-
-        // Set domain
-        x.domain(d3.extent(cooked_data, function (d) {
-            return d.x;
-        }));
-
-        yRate.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
-            return [d.rateA, d.rateB];
-        }))));
-
-        yDF.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
-            return [d.DFA, d.DFB];
-        }))));
-
-        /**
-         * Change graph
-         */
-        var svg = d3.select("svg#graph").transition().duration(750);
-
-        // Change curves
-        svg.select(".line.rate.a")
-            .attr("d", lineRate(cooked_data.map(function (d) {
-                return {x: d.x, rate: d.rateA};
-            })));
-
-        svg.select(".line.rate.b")
-            .attr("d", lineRate(cooked_data.map(function (d) {
-                return {x: d.x, rate: d.rateB};
-            })));
-
-        svg.select(".line.DF.a")
-            .attr("d", lineDF(cooked_data.map(function (d) {
-                return {x: d.x, DF: d.DFA};
-            })));
-
-        svg.select(".line.DF.b")
-            .attr("d", lineDF(cooked_data.map(function (d) {
-                return {x: d.x, DF: d.DFB};
-            })));
-
-        // Change dots
-        updateOrCreateDots(cooked_data);
-
-        // Change axis
-        svg.select(".x.axis")
-            .call(xAxis);
-
-        svg.select(".y.rate.axis")
-            .call(yRateAxis);
-
-        svg.select(".y.DF.axis")
-            .call(yDFAxis);
-    }
-
     function getData() {
         var raw_data = {};
 
@@ -254,7 +269,8 @@ var graph = (function () {
                 rateA: this.rates.a,
                 rateB: this.rates.b,
                 DFA: this.DF.a,
-                DFB: this.DF.b
+                DFB: this.DF.b,
+                t: this.t
             });
         });
         return cooked_data;
