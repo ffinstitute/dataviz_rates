@@ -20,13 +20,9 @@
     <script src="lib/d3.v4.min.js"></script>
     <script src="lib/bootstrap-datepicker.min.js"></script>
     <script src="lib/mustache.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/graphs.js"></script>
-
 </head>
 
 <body>
-
 <div class='container bs-docs-container'>
 
     <h2><a href='https://first-finance.institute' target=_blank><img src='img/logo_ffi_32px.png'
@@ -112,7 +108,7 @@
                     position: fixed;
                     bottom: 0px;
                     background: rgba(255, 0, 0, 0.3);
-                    font-size:10px;
+                    font-size: 10px;
                 }
             </style>
             <div class='col-xs-12' id=graphA>
@@ -133,19 +129,22 @@
                 Red:#cc0000
             </p>
         </div>
-
     </div>
 
     <script id="template-table-row" type="x-tmpl-mustache">
-<tr data-m="{{ m }}" data-y="{{ y }}" data-t="{{ t }}">
-    <td class="t" title="{{ t_full }}">{{ t }}</td>
-    <td class="days text-center"></td>
-    <td class="input"><input type="text" class="form-control rate a" tabindex="1" value="{{ rate_a }}" maxlength="5"></td>
-    <td class="df a text-right">0.0000000000</td>
-    <td class="input"><input type="text" class="form-control rate b" tabindex="2" value="{{ rate_b }}" maxlength="5"></td>
-    <td class="df b text-right">0.0000000000</td>
-</tr>
+        <tr data-m="{{ m }}" data-y="{{ y }}" data-t="{{ t }}">
+            <td class="t" title="{{ t_full }}">{{ t }}</td>
+            <td class="days text-center"></td>
+            <td class="input"><input type="text" class="form-control rate a" tabindex="1" value="{{ rate_a }}"
+                                     maxlength="5"></td>
+            <td class="df a text-right">0.0000000000</td>
+            <td class="input"><input type="text" class="form-control rate b" tabindex="2" value="{{ rate_b }}"
+                                     maxlength="5"></td>
+            <td class="df b text-right">0.0000000000</td>
+        </tr>
     </script>
 
+    <script src="js/main.js"></script>
+    <script src="js/graphs.js"></script>
 </body>
 </html>

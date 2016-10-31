@@ -236,17 +236,25 @@ var rates = (function () {
         $('input.rate, .options select').on('input', function () {
             console.info('Date Updated');
             updateTable();
+            graph.update();
         });
 
         $('input.rate').focusout(function () {
             var val = $(this).val();
             val = validatePercentage(val) ? parseFloat(val) : 2.5;
             $(this).val(val.toFixed(2));
+            updateTable();
+            graph.update();
         });
 
         $('input#startDate').on('change', function () {
             console.info('Date Updated');
             updateTable();
+            graph.update();
+        });
+
+        $(window).resize(function () {
+            graph.update();
         });
     });
 
