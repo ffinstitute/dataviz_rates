@@ -30,21 +30,7 @@ path.line.b {
     stroke: #4986db;
 }
 
-/* tooltips */
-/*
-div.white {
-    background-color: #fff;
+.rate.dot, .DF.dot {
+    fill: #fff;
+    stroke: #000;
 }
-
-div.tooltips {
-    position: absolute;
-    color: #fff;
-    width: 150px;
-    padding: 8px;
-    font: 12px sans-serif;
-    background: #333;
-    border: solid 1px #aaa;
-    border-radius: 4px;
-    pointer-events: none;
-}
-*/

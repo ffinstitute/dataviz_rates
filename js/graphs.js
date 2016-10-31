@@ -87,34 +87,7 @@ var graph = (function () {
             })));
 
         // Draw the scatterplot
-        svg.selectAll("dot.rate")
-            .data([].concat.apply([], cooked_data.map(function (d) {
-                return [{x: d.x, rate: d.rateA}, {x: d.x, rate: d.rateB}];
-            })))
-            .enter().append("circle")
-            .attr("r", 3)
-            .attr("cx", function (d) {
-                return x(d.x);
-            })
-            .attr("cy", function (d) {
-                return yRate(d.rate);
-            })
-            .attr("class", "rate dot");
-
-        svg.selectAll("dot.DF")
-            .data([].concat.apply([], cooked_data.map(function (d) {
-                return [{x: d.x, DF: d.DFA}, {x: d.x, DF: d.DFB}];
-            })))
-            .enter().append("circle")
-            .attr("r", 3)
-            .attr("cx", function (d) {
-                return x(d.x);
-            })
-            .attr("cy", function (d) {
-                return yDF(d.DF);
-            })
-            .attr("class", "DF dot");
-
+        updateOrCreateDots(cooked_data);
 
         // Draw axis
         svg.append("g")
@@ -131,6 +104,79 @@ var graph = (function () {
             .attr("class", "y DF axis")
             .attr("transform", "translate(" + (margin.left) + ",0)")
             .call(yDFAxis);
+    }
+
+    function updateOrCreateDots(cooked_data) {
+        var normal_radius = 2,
+            highlight_radius = 3;
+
+        var t = d3.transition()
+            .duration(750);
+
+        var dot_rate = svg.selectAll(".rate.dot")
+            .data([].concat.apply([], cooked_data.map(function (d) {
+                return [{x: d.x, y: d.rateA}, {x: d.x, y: d.rateB}];
+            })));
+
+        dot_rate.exit()
+            .classed("exit", true)
+            .attr('r', 0)
+            .style('fill-opacity', 1e-6)
+            .remove();
+
+        dot_rate.classed('update', true)
+            .attr("r", highlight_radius)
+            .transition(t)
+            .attr("cx", function (d) {
+                return x(d.x);
+            })
+            .attr("cy", function (d) {
+                return yRate(d.y);
+            })
+            .attr("r", normal_radius);
+
+
+        dot_rate.enter().append("circle")
+            .attr("r", normal_radius)
+            .attr("cx", function (d) {
+                return x(d.x);
+            })
+            .attr("cy", function (d) {
+                return yRate(d.y);
+            })
+            .attr("class", "rate dot");
+
+        var dot_DF = svg.selectAll(".DF.dot")
+            .data([].concat.apply([], cooked_data.map(function (d) {
+                return [{x: d.x, y: d.DFA}, {x: d.x, y: d.DFB}];
+            })));
+
+        dot_DF.exit()
+            .classed("exit", true)
+            .attr('r', 0)
+            .style('fill-opacity', 1e-6)
+            .remove();
+
+        dot_DF.classed('update', true)
+            .attr("r", highlight_radius)
+            .transition(t)
+            .attr("cx", function (d) {
+                return x(d.x);
+            })
+            .attr("cy", function (d) {
+                return yDF(d.y);
+            })
+            .attr("r", normal_radius);
+
+        dot_DF.enter().append("circle")
+            .attr("r", normal_radius)
+            .attr("cx", function (d) {
+                return x(d.x);
+            })
+            .attr("cy", function (d) {
+                return yDF(d.y);
+            })
+            .attr("class", "DF dot");
     }
 
     function update() {
@@ -154,7 +200,7 @@ var graph = (function () {
         /**
          * Change graph
          */
-        var svg = d3.select("svg#graph").transition();
+        var svg = d3.select("svg#graph").transition().duration(750);
 
         // Change curves
         svg.select(".line.rate.a")
@@ -178,8 +224,7 @@ var graph = (function () {
             })));
 
         // Change dots
-
-
+        updateOrCreateDots(cooked_data);
 
         // Change axis
         svg.select(".x.axis")

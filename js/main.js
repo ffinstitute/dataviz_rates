@@ -221,6 +221,16 @@ var rates = (function () {
         return pct;
     }
 
+    function isInputChanged() {
+        if (this.nodeName.toUpperCase() === "INPUT") {
+            var old_value = validatePercentage($(this).data('old_value'));
+            var new_value = validatePercentage($(this).val());
+            if (old_value === new_value) return false;
+            $(this).data('old_value', new_value);
+        }
+        return true;
+    }
+
     /**
      * Main procedure
      */
@@ -234,15 +244,19 @@ var rates = (function () {
 
         // register listeners
         $('input.rate, .options select').on('input', function () {
+            if (!isInputChanged.bind(this)()) return false;
             console.info('Date Updated');
             updateTable();
             graph.update();
         });
 
         $('input.rate').focusout(function () {
-            var val = $(this).val();
-            val = validatePercentage(val) ? parseFloat(val) : 2.5;
+            var raw_val = $(this).val();
+            val = validatePercentage(raw_val) ? parseFloat(raw_val) : 2.5;
+            if (val.toFixed(2) === raw_val) return false;
+
             $(this).val(val.toFixed(2));
+            if (!isInputChanged.bind(this)()) return false;
             updateTable();
             graph.update();
         });

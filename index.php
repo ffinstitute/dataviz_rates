@@ -106,9 +106,16 @@
             <style>
                 .float {
                     position: fixed;
-                    bottom: 0px;
-                    background: rgba(255, 0, 0, 0.3);
-                    font-size: 10px;
+                    top: 0;
+                    right: 0;
+                    background: rgba(0, 0, 0, 0.3);
+                    color: #FFF !important;
+                    font-size: 12px;
+                    text-align: right;
+                }
+                .float a, .float a:visited, .float a:focus {
+                    color: #FFF;
+                    text-decoration: underline;
                 }
             </style>
             <div class='col-xs-12' id=graphA>
@@ -136,9 +143,11 @@
             <td class="t" title="{{ t_full }}">{{ t }}</td>
             <td class="days text-center"></td>
             <td class="input"><input type="text" class="form-control rate a" tabindex="1" value="{{ rate_a }}"
+                                     data-old_value="{{ rate_a }}"
                                      maxlength="5"></td>
             <td class="df a text-right">0.0000000000</td>
             <td class="input"><input type="text" class="form-control rate b" tabindex="2" value="{{ rate_b }}"
+                                     data-old_value="{{ rate_b }}"
                                      maxlength="5"></td>
             <td class="df b text-right">0.0000000000</td>
         </tr>
