@@ -41,12 +41,12 @@ input.rate {
     white-space: nowrap;
 }
 
-#tableA tbody td.df {
-    width: 100px;
-}
-
 #tableA tbody td.input {
     width: 63px;
+}
+
+#tableA .separator {
+    width: 10%;
 }
 
 input#startDate {

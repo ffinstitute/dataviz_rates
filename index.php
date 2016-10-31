@@ -24,13 +24,15 @@
 <body>
 <div class='container bs-docs-container'>
 
-    <h2 class="caption"><a href='https://first-finance.institute' target=_blank><img src='img/logo_ffi_32px.png'
-                                                                     title='First Finance Institute'
-                                                                     style="vertical-align: top"></a> Dataviz rates</h2>
-
+    <h2 class="caption">
+        <a href='https://first-finance.institute' target=_blank>
+            <img src='img/logo_ffi_32px.png' title='First Finance Institute' style="vertical-align: top"/>
+        </a>
+        Dataviz rates</h2>
+    <hr/>
     <div class=row>
         <div class='col-xs-12'>
-            <table width="100%" id="tableA" class="table-hover table-inputs table-striped">
+            <table width="100%" id="tableA" class="table-hover table-inputs">
                 <thead>
                 <tr class="options">
                     <td rowspan="2">
@@ -45,6 +47,7 @@
                             <option>act/365</option>
                         </select>
                     </td>
+                    <td class="separator"></td>
                     <td colspan="2" class="text-center">
                         <select class="money blue b form-control">
                             <option>act/360</option>
@@ -62,6 +65,7 @@
                             <option>act/365</option>
                         </select>
                     </td>
+                    <td class="separator"></td>
                     <td colspan="2" class="text-center">
                         <select class="swap blue b form-control">
                             <option>30/360</option>
@@ -78,6 +82,7 @@
                     <th class="text-center">#days</th>
                     <th class="text-right red">Rate %</th>
                     <th class="text-right red">Discount Factor</th>
+                    <th class="separator"></th>
                     <th class="text-right blue">Rate %</th>
                     <th class="blue text-right">Discount Factor</th>
                 </tr>
@@ -89,8 +94,6 @@
 
 
     </div>
-
-    <hr/>
 
     <div class="row">
         <div class="col-xs-12">
@@ -111,6 +114,7 @@
                     font-size: 12px;
                     text-align: right;
                 }
+
                 .float a, .float a:visited, .float a:focus {
                     color: #FFF;
                     text-decoration: underline;
@@ -144,6 +148,7 @@
                                      data-old_value="{{ rate_a }}"
                                      maxlength="5"></td>
             <td class="df a text-right">0.0000000000</td>
+            <td class="separator"></td>
             <td class="input"><input type="text" class="form-control rate b" tabindex="2" value="{{ rate_b }}"
                                      data-old_value="{{ rate_b }}"
                                      maxlength="5"></td>
