@@ -10,7 +10,6 @@
     <link href="css/jquery-ui.css" rel="stylesheet">
     <link href="css/datepicker/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-    <link href="css/d3.css" rel="stylesheet">
 
     <!-- Font awesome -->
     <link href="css/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
@@ -25,10 +24,9 @@
 <body>
 <div class='container bs-docs-container'>
 
-    <h2><a href='https://first-finance.institute' target=_blank><img src='img/logo_ffi_32px.png'
+    <h2 class="caption"><a href='https://first-finance.institute' target=_blank><img src='img/logo_ffi_32px.png'
                                                                      title='First Finance Institute'
                                                                      style="vertical-align: top"></a> Dataviz rates</h2>
-    <hr/>
 
     <div class=row>
         <div class='col-xs-12'>
@@ -97,7 +95,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h4 class="text-center">Graph Rates/DF</h4>
-            <svg id="graph" width="100%" height="300"></svg>
+            <svg id="graph" width="100%" height="360"></svg>
         </div>
 
         <hr/>

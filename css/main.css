@@ -70,7 +70,34 @@ input.error {
     color: #4986db;
 }
 
-svg {
-    background-color: red;
+/*
+** D3 Graph styles
+*/
+.axis {
+    /*font: 10px sans-serif;*/
 }
 
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+path.line {
+    fill: none;
+    stroke-width: 2px;
+}
+
+path.line.a {
+    stroke: #cc0000;
+}
+
+path.line.b {
+    stroke: #4986db;
+}
+
+.rate.dot, .DF.dot {
+    fill: #fff;
+    stroke: #000;
+}
