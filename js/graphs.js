@@ -5,7 +5,7 @@ var graph = (function () {
     var svg = d3.select("svg#graph"),
         margin = {top: 10, left: 45, bottom: 20, right: 10, middle: 20};
 
-    var svg_width, svg_height, x, yRate, yDF, xAxis, yRateAxis, yDFAxis, lineRate, lineDF;
+    var svg_width, svg_height, x, yRate, yDF, xAxis, yRateAxis, yDFAxis, lineRate, lineDF, tooltip;
 
     function init() {
         svg_width = parseInt(svg.style('width'));
@@ -45,6 +45,10 @@ var graph = (function () {
 
     function create() {
         init();
+
+        // Create Tooltip
+        tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip");
 
         var cooked_data = getData();
 
@@ -202,6 +206,19 @@ var graph = (function () {
                 return [{x: d.x, y: d.rateA}, {x: d.x, y: d.rateB}];
             })));
 
+        var showTooltip = function (d) {
+            d3.select(this).attr('r', highlight_radius);
+            tooltip.classed("show", true)
+                .html(d.y)
+                .style("left", (d3.event.pageX) + "px");
+            tooltip.style("top", (d3.event.pageY - parseInt(tooltip.style('height'))) + "px");
+        };
+
+        var hideTooltip = function (d) {
+            d3.select(this).attr('r', normal_radius);
+            tooltip.classed("show", false);
+        };
+
         dot_rate.exit()
             .classed("exit", true)
             .attr('r', 0)
@@ -228,7 +245,9 @@ var graph = (function () {
             .attr("cy", function (d) {
                 return yRate(d.y);
             })
-            .attr("class", "rate dot");
+            .attr("class", "rate dot")
+            .on("mouseover", showTooltip)
+            .on("mouseout", hideTooltip);
 
         var dot_DF = svg.selectAll(".DF.dot")
             .data([].concat.apply([], cooked_data.map(function (d) {
@@ -260,7 +279,9 @@ var graph = (function () {
             .attr("cy", function (d) {
                 return yDF(d.y);
             })
-            .attr("class", "DF dot");
+            .attr("class", "DF dot")
+            .on("mouseover", showTooltip)
+            .on("mouseout", hideTooltip);
     }
 
     function getData() {
@@ -279,8 +300,8 @@ var graph = (function () {
                 x: this.total_days,
                 rateA: this.rates.a,
                 rateB: this.rates.b,
-                DFA: this.DF.a,
-                DFB: this.DF.b,
+                DFA: Math.round(this.DF.a * 1e11) / 1e11,
+                DFB: Math.round(this.DF.b * 1e11) / 1e11,
                 t: this.t
             });
         });

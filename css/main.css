@@ -101,3 +101,24 @@ path.line.b {
     fill: #fff;
     stroke: #000;
 }
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 3px 8px;
+    font: 12px sans-serif;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    white-space: nowrap;
+    -webkit-transition: opacity 0.25s linear;
+    -moz-transition: opacity 0.25s linear;
+    -ms-transition: opacity 0.25s linear;
+    -o-transition: opacity 0.25s linear;
+}
+
+div.tooltip.show {
+    opacity: 1;
+}
