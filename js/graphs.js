@@ -3,7 +3,7 @@
  */
 var graph = (function () {
     var svg = d3.select("svg#graph"),
-        margin = {top: 10, left: 30, bottom: 20, right: 10, middle: 20};
+        margin = {top: 10, left: 45, bottom: 20, right: 10, middle: 20};
 
     var svg_width, svg_height, x, yRate, yDF, xAxis, yRateAxis, yDFAxis, lineRate, lineDF;
 
@@ -111,6 +111,17 @@ var graph = (function () {
             .attr("class", "y DF axis")
             .attr("transform", "translate(" + (margin.left) + ",0)")
             .call(yDFAxis);
+
+        // Add yAxis labels
+        svg.append("text")
+            .attr("x", (svg_height - margin.middle + margin.top * 3 - margin.bottom) / 4 - 25)
+            .attr("transform", "rotate(90)")
+            .text("Rates %");
+
+        svg.append("text")
+            .attr("x", (svg_height + margin.middle / 3 + margin.top / 3 - margin.bottom) / 4 * 3 - 50)
+            .attr("transform", "rotate(90)")
+            .text("Discount Factor");
     }
 
     function update() {
