@@ -97,47 +97,12 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h4 class="text-center">Graph Rates/DF</h4>
+            <h4 class="text-center" id="graph-title">Graph of Rate and DF</h4>
             <svg id="graph" width="100%" height="360"></svg>
         </div>
 
         <hr/>
 
-        <div class="row float">
-            <style>
-                .float {
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    background: rgba(0, 0, 0, 0.3);
-                    color: #FFF !important;
-                    font-size: 12px;
-                    text-align: right;
-                }
-
-                .float a, .float a:visited, .float a:focus {
-                    color: #FFF;
-                    text-decoration: underline;
-                }
-            </style>
-            <div class='col-xs-12' id=graphA>
-                Graph-A (rate curves)
-                Xscale -> days
-                Xscale ticks are "3m, 6m, 9m, 1Year, 2Y, etc"
-                <br>
-                Graph-B (discount factors)
-            </div>
-
-            <p class="col-xs-12">
-                <a href="https://docs.google.com/spreadsheets/d/1xwRvPs14zlTLQFlQmVg1KRoVQ2YUyLPFqWztVqwC2_o/edit#gid=0"
-                   target="_blank">Calculation
-                    reference</a>
-                <br/>
-                Color ref:
-                Blue:#4986DB
-                Red:#cc0000
-            </p>
-        </div>
     </div>
 
     <script id="template-table-row" type="x-tmpl-mustache">
