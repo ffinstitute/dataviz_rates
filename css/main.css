@@ -51,6 +51,8 @@ input.rate {
 
 input#startDate {
     width: 88px;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {

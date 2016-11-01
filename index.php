@@ -38,7 +38,7 @@
                     <td rowspan="2">
                         <label for="startDate">Start date:</label>
                         <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy"
-                               data-date-autoclose="true" id="startDate">
+                               data-date-autoclose="true" id="startDate" readonly>
                     </td>
                     <th class="text-right">Money Rates</th>
                     <td colspan="2" class="text-center">

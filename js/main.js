@@ -207,10 +207,18 @@ var rates = (function () {
 
     function toDateString(dateObj) {
         if (dateObj instanceof Date) {
-            return dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
+            return toFixedTwoDigit(dateObj.getDate()) + '/' + toFixedTwoDigit(dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
         } else {
             return false;
         }
+    }
+
+    function toFixedTwoDigit(number) {
+        number = parseInt(number);
+        if (!number) return false;
+        if (number > 9) return number + '';
+        // pad zero before for 1 to 9
+        return "0" + number;
     }
 
     function validatePercentage(text) {
