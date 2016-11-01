@@ -16,18 +16,12 @@ input.rate {
 
 #tableA tbody tr:first-of-type input.rate {
     border-top-width: 1px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-}
-
-#tableA tbody tr:last-of-type input.rate {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
 }
 
 #tableA .form-control {
-    height: 25px;
+    height: 20px;
     font-size: 12px;
+    border-radius: 0;
 }
 
 #tableA thead > tr:last-child th {
@@ -53,6 +47,7 @@ input#startDate {
     width: 88px;
     background-color: #fff;
     cursor: pointer;
+    border-radius: 0;
 }
 
 .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
@@ -79,10 +74,6 @@ input.error {
 /*
 ** D3 Graph styles
 */
-.axis {
-    /*font: 10px sans-serif;*/
-}
-
 .axis path,
 .axis line {
     fill: none;
@@ -116,15 +107,14 @@ div.tooltip {
     font: 12px sans-serif;
     background: rgba(0, 0, 0, 0.5);
     border: 0;
-    border-radius: 4px;
     pointer-events: none;
     white-space: nowrap;
-    -webkit-transition: opacity 0.25s linear;
-    -moz-transition: opacity 0.25s linear;
-    -ms-transition: opacity 0.25s linear;
-    -o-transition: opacity 0.25s linear;
+    transition-delay: 0.5s;
+    -webkit-transition-delay: 0.5s;
 }
 
 div.tooltip.show {
     opacity: 1;
+    transition-delay: 0s;
+    -webkit-transition-delay: 0s;
 }

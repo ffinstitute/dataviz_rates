@@ -118,13 +118,15 @@ var graph = (function () {
 
         // Add yAxis labels
         svg.append("text")
-            .attr("x", (svg_height - margin.middle + margin.top * 3 - margin.bottom) / 4 - 25)
-            .attr("transform", "rotate(90)")
-            .text("Rates %");
+            .attr("x", ( margin.middle - margin.top * 3 + margin.bottom - svg_height) / 4 - 25)
+            .attr("y", 13)
+            .attr("transform", "rotate(270)")
+            .text("Rate %");
 
         svg.append("text")
-            .attr("x", (svg_height + margin.middle / 3 + margin.top / 3 - margin.bottom) / 4 * 3 - 50)
-            .attr("transform", "rotate(90)")
+            .attr("x", (margin.bottom - svg_height - margin.middle / 3 - margin.top / 3 ) / 4 * 3 - 52)
+            .attr("y", 13)
+            .attr("transform", "rotate(270)")
             .text("Discount Factor");
     }
 
@@ -206,10 +208,19 @@ var graph = (function () {
                 return [{x: d.x, y: d.rateA}, {x: d.x, y: d.rateB}];
             })));
 
-        var showTooltip = function (d) {
+        var showTooltip = function (d, type) {
+            var text = "";
+            switch (type) {
+                case "rate":
+                    text = "Rate: " + d.y.toFixed(2) + "%";
+                    break;
+                case "DF":
+                    text = "DF: " + d.y.toFixed(10);
+                    break;
+            }
             d3.select(this).attr('r', highlight_radius);
             tooltip.classed("show", true)
-                .html(d.y)
+                .html(text)
                 .style("left", (d3.event.pageX) + "px");
             tooltip.style("top", (d3.event.pageY - parseInt(tooltip.style('height'))) + "px");
         };
@@ -246,8 +257,9 @@ var graph = (function () {
                 return yRate(d.y);
             })
             .attr("class", "rate dot")
-            .on("mouseover", showTooltip)
-            .on("mouseout", hideTooltip);
+            .on("mouseover", function (d) {
+                showTooltip.bind(this)(d, 'rate');
+            }).on("mouseout", hideTooltip);
 
         var dot_DF = svg.selectAll(".DF.dot")
             .data([].concat.apply([], cooked_data.map(function (d) {
@@ -280,7 +292,9 @@ var graph = (function () {
                 return yDF(d.y);
             })
             .attr("class", "DF dot")
-            .on("mouseover", showTooltip)
+            .on("mouseover", function (d) {
+                showTooltip.bind(this)(d, 'DF');
+            })
             .on("mouseout", hideTooltip);
     }
 
@@ -300,8 +314,8 @@ var graph = (function () {
                 x: this.total_days,
                 rateA: this.rates.a,
                 rateB: this.rates.b,
-                DFA: Math.round(this.DF.a * 1e11) / 1e11,
-                DFB: Math.round(this.DF.b * 1e11) / 1e11,
+                DFA: this.DF.a,
+                DFB: this.DF.b,
                 t: this.t
             });
         });
@@ -313,3 +327,10 @@ var graph = (function () {
         update: update
     }
 })(jQuery);
+
+
+/* y Axis from 0
+ Tootips %, padding 0
+ hover vertical line
+ space first column center ...
+ */

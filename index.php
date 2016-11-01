@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Dataviz Rates by First Finance Institute</title>
+    <title>Discount Factors by First Finance Institute</title>
     <link rel="shortcut icon" href="img/favicon.jpg">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
         <a href='https://first-finance.institute' target=_blank>
             <img src='img/logo_ffi_32px.png' title='First Finance Institute' style="vertical-align: top"/>
         </a>
-        Dataviz Rates</h2>
+        Swap Curves and Discount Factors</h2>
     <hr/>
     <div class=row>
         <div class='col-xs-12'>
@@ -95,9 +95,8 @@
 
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-top: 40px;">
         <div class="col-xs-12">
-            <h4 class="text-center" id="graph-title">Graph of Rate and DF</h4>
             <svg id="graph" width="100%" height="360"></svg>
         </div>
 
