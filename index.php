@@ -34,46 +34,66 @@
         <div class='col-xs-12'>
             <table width="100%" id="tableA" class="table-hover table-inputs">
                 <thead>
+                <tr>
+                    <th colspan="2" class="text-right">Start Date</th>
+                    <td colspan="5">
+                        <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy"
+                               data-date-autoclose="true" id="startDate" readonly>
+                    </td>
+                </tr>
                 <tr class="options">
+                    <th colspan="2" class="text-right">Money Rates</th>
                     <td colspan="2">
-                        <label for="startDate">Start date:</label>
+                        <div class="btn-group btn-group-xs money red a" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="option0" autocomplete="off" checked>act/360
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="option0" autocomplete="off">act/365
+                            </label>
+                        </div>
                     </td>
-
-                    <td colspan="2" class="text-center">
-                        <select class="money red a form-control">
-                            <option>act/360</option>
-                            <option>act/365</option>
-                        </select>
-                    </td>
-                    <th class="separator">Money Rates</th>
-                    <td colspan="2" class="text-center">
-                        <select class="money blue b form-control">
-                            <option>act/360</option>
-                            <option>act/365</option>
-                        </select>
+                    <th class="separator text-right">Money Rates</th>
+                    <td colspan="2">
+                        <div class="btn-group btn-group-xs money blue b" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="option1" autocomplete="off" checked>act/360
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="option1" autocomplete="off">act/365
+                            </label>
+                        </div>
                     </td>
 
                 </tr>
                 <tr class="options">
+                    <th colspan="2" class="text-right">Swap Rates</th>
                     <td colspan="2">
-                        <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy"
-                               data-date-autoclose="true" id="startDate" readonly>
+                        <div class="btn-group btn-group-xs swap red a" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="option2" autocomplete="off" checked>30/360
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="option2" autocomplete="off">act/360
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="option2" autocomplete="off">act/365
+                            </label>
+                        </div>
                     </td>
-
-                    <td colspan="2" class="text-center">
-                        <select class="swap red a form-control">
-                            <option>30/360</option>
-                            <option>act/360</option>
-                            <option>act/365</option>
-                        </select>
-                    </td>
-                    <th class="separator">Swap Rates</th>
-                    <td colspan="2" class="text-center">
-                        <select class="swap blue b form-control">
-                            <option>30/360</option>
-                            <option>act/360</option>
-                            <option>act/365</option>
-                        </select>
+                    <th class="separator text-right">Swap Rates</th>
+                    <td colspan="2">
+                        <div class="btn-group btn-group-xs swap blue b" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="option3" autocomplete="off" checked>30/360
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="option3" autocomplete="off">act/360
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="option3" autocomplete="off">act/365
+                            </label>
+                        </div>
                     </td>
                 </tr>
                 <tr class="space">

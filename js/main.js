@@ -195,12 +195,12 @@ var rates = (function () {
         $options = $('.options');
         return {
             a: {
-                money: $options.find('select.a.money').val(),
-                swap: $options.find('select.a.swap').val()
+                money: $options.find('.btn-group.a.money input:checked').parent().text().trim(),
+                swap: $options.find('.btn-group.a.swap input:checked').parent().text().trim()
             },
             b: {
-                money: $options.find('select.b.money').val(),
-                swap: $options.find('select.b.swap').val()
+                money: $options.find('.btn-group.b.money input:checked').parent().text().trim(),
+                swap: $options.find('.btn-group.b.swap input:checked').parent().text().trim()
             }
         };
     }
@@ -251,9 +251,13 @@ var rates = (function () {
         graph.create();
 
         // register listeners
-        $('input.rate, .options select').on('input', function () {
+        $('.options input').change(function () {
+            updateTable();
+            graph.update();
+        })
+
+        $('input.rate').on('input', function () {
             if (!isInputChanged.bind(this)()) return false;
-            console.info('Date Updated');
             updateTable();
             graph.update();
         });

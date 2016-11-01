@@ -3,6 +3,42 @@
     max-width: 700px;
 }
 
+h2.caption {
+    white-space: nowrap;
+}
+
+.options .btn-group {
+    width: 100%;
+}
+
+.options .money label {
+    width: 50%;
+}
+
+.options .swap label {
+    width: 33%;
+}
+
+.options .swap label:nth-of-type(2) {
+    width: 34%;
+}
+
+.options label {
+    border-radius: 0 !important;
+}
+
+.options label.active {
+    color: #fff;
+}
+
+.options .a label.active {
+    background-color: #cc0000;
+}
+
+.options .b label.active {
+    background-color: #4986db;
+}
+
 input.rate {
     padding-right: 3px;
     border-radius: 0;
@@ -19,7 +55,7 @@ input.rate {
 }
 
 #tableA .form-control {
-    height: 20px;
+    height: 22px;
     font-size: 12px;
     border-radius: 0;
 }
@@ -33,6 +69,10 @@ input.rate {
     font-size: 12px;
     vertical-align: middle;
     white-space: nowrap;
+}
+
+#tableA thead td {
+    padding: 1px 0;
 }
 
 #tableA tbody td.input {
@@ -52,6 +92,7 @@ input#startDate {
     background-color: #fff;
     cursor: pointer;
     border-radius: 0;
+    display: inline-block;
 }
 
 .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th, tr.highlight {
@@ -72,7 +113,7 @@ input.error {
 }
 
 #graph-title {
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
 }
 
 /*
@@ -80,7 +121,7 @@ input.error {
 */
 #graph svg {
     width: 100%;
-    height: 500px;
+    height: 440px;
 }
 
 .axis path,
