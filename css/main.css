@@ -39,6 +39,10 @@ input.rate {
     width: 63px;
 }
 
+#tableA .t {
+    width: 1px;
+}
+
 #tableA .separator {
     width: 10%;
 }
@@ -127,6 +131,6 @@ div.tooltip.show {
 svg line.hover {
     stroke-width: 2;
     stroke: rgba(0, 0, 0, 0.3);
-    stroke-dasharray: 5,3;
+    stroke-dasharray: 5, 3;
     fill: none;
 }
