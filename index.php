@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Dataviz title by First Finance Institute</title>
+    <title>Dataviz Rates by First Finance Institute</title>
     <link rel="shortcut icon" href="img/favicon.jpg">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
         <a href='https://first-finance.institute' target=_blank>
             <img src='img/logo_ffi_32px.png' title='First Finance Institute' style="vertical-align: top"/>
         </a>
-        Dataviz rates</h2>
+        Dataviz Rates</h2>
     <hr/>
     <div class=row>
         <div class='col-xs-12'>
