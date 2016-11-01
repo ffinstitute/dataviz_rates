@@ -54,6 +54,7 @@ var graph = (function () {
 
         // Add hover groups
         focus = svg.append("g")
+            .attr("id", "hover-container")
             .style("display", "none");
 
         focus.append("line")
@@ -98,9 +99,10 @@ var graph = (function () {
             })
             .on("mouseout", function () {
                 focus.style("display", "none");
+                document.dispatchEvent(new CustomEvent('graph-hover-over'));
             })
             .on("mousemove", function () {
-                mousemove.bind(this)(cooked_data);
+                mousemove.bind(this)();
             });
 
         // Draw the scatterplot
@@ -317,13 +319,27 @@ var graph = (function () {
             .on("mouseout", hideTooltip);
     }
 
-    function mousemove(data) {
+    function mousemove() {
         var x0 = x.invert(d3.mouse(this)[0]),
-            i = bisectDate(data, x0, 1),
-            d0 = data[i - 1],
-            d1 = data[i];
+            i = bisectDate(cooked_data, x0, 1);
+        var d0 = cooked_data[i - 1],
+            d1 = cooked_data[i];
         if (!(d0 && d1)) return false;
-        var d = x0 - d0.x > d1.x - x0 ? d1 : d0;
+        i = x0 - d0.x > d1.x - x0 ? i : i - 1;
+        updateHoverLine(i);
+        document.dispatchEvent(new CustomEvent('graph-hover', {'detail': {t: cooked_data[i].t}}));
+    }
+
+    function updateHoverLine(i, t) {
+        var d;
+        if (t) {
+            d = cooked_data.filter(function (d) {
+                return d.t == t;
+            });
+            if (d.length) d = d[0];
+        } else
+            d = cooked_data[i];
+        if (!d) return false;
 
         focus.select("line.hover")
             .attr("x1", x(d.x))
@@ -358,12 +374,12 @@ var graph = (function () {
 
     return {
         create: create,
-        update: update
+        update: update,
+        updateHoverLine: updateHoverLine
     }
 })(jQuery);
 
 
 /*
- hover vertical line
  space first column center ...
  */

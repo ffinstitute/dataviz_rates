@@ -275,6 +275,34 @@ var rates = (function () {
             graph.update();
         });
 
+        // table hover
+        $('#tableA tbody tr').on("mouseover", function () {
+            $("#hover-container").show();
+            graph.updateHoverLine(null, $(this).data('t'));
+        })
+            .on("mouseout", function () {
+                $("#hover-container").hide();
+            });
+
+        // graph hover and action on table
+        document.addEventListener("graph-hover", function (e) {
+            // highlight table row
+            var $rows = $("#tableA tbody tr");
+            $rows.removeClass("highlight");
+            $rows.each(function () {
+                if ($(this).data('t') == e.detail.t) {
+                    $(this).addClass("highlight");
+                    return false;
+                }
+            });
+        });
+        document.addEventListener("graph-hover-over", function (e) {
+            var $rows = $("#tableA tbody tr");
+            // remove table row highlight
+            $rows.removeClass("highlight");
+        });
+
+
         $(window).resize(function () {
             graph.update();
         });
@@ -284,3 +312,23 @@ var rates = (function () {
         getStartDate: getStartDate
     }
 })(jQuery);
+
+/***
+ *
+ * Polyfills
+ *
+ **/
+
+// CustomEvent
+(function () {
+    if (typeof window.CustomEvent === "function") return false;
+    function CustomEvent(event, params) {
+        params = params || {bubbles: false, cancelable: false, detail: undefined};
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    }
+
+    CustomEvent.prototype = window.Event.prototype;
+    window.CustomEvent = CustomEvent;
+})();

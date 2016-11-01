@@ -50,7 +50,7 @@ input#startDate {
     border-radius: 0;
 }
 
-.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th, tr.highlight {
     background-color: #e5e5e5;
 }
 
