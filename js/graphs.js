@@ -2,22 +2,27 @@
  * Created by myles on 28/10/2016.
  */
 var graph = (function () {
-    var svg = d3.select("svg#graph"),
+    var svg = d3.select("#graph").append("svg"),
         margin = {top: 10, left: 45, bottom: 20, right: 10, middle: 20};
 
-    var svg_width, svg_height, x, yRate, yDF, xAxis, yRateAxis, yDFAxis, lineRate, lineDF, tooltip;
+    var svg_width, svg_height, x, yRate, yDF, xAxis, yRateAxis, yDFAxis, lineRate, lineDF, tooltip, cooked_data, focus;
 
-    function init() {
+    var bisectDate = d3.bisector(function (d) {
+        return d.x;
+    }).left;
+
+    function updateSize() {
         svg_width = parseInt(svg.style('width'));
         svg_height = parseInt(svg.style('height'));
-
-        svg.empty();
 
         // set range
         x = d3.scaleLinear().range([0 + margin.left, svg_width - margin.right]);
         yRate = d3.scaleLinear().range([(svg_height - margin.middle - margin.bottom + margin.top ) / 2, 0 + margin.top]);
         yDF = d3.scaleLinear().range([svg_height - margin.bottom, (svg_height - margin.bottom + margin.top + margin.middle) / 2]);
 
+    }
+
+    function updateFunc() {
         // Define the axes
         xAxis = d3.axisBottom(x);
         yRateAxis = d3.axisLeft(yRate);
@@ -44,26 +49,27 @@ var graph = (function () {
     }
 
     function create() {
-        init();
+        updateSize();
+        updateFunc();
+
+        // Add hover groups
+        focus = svg.append("g")
+            .style("display", "none");
+
+        focus.append("line")
+            .attr("class", "hover")
+            .attr("x1", x(190))
+            .attr("y1", margin.top)
+            .attr("x2", x(190))
+            .attr("y2", svg_height - margin.bottom);
 
         // Create Tooltip
         tooltip = d3.select("body").append("div")
             .attr("class", "tooltip");
 
-        var cooked_data = getData();
+        cooked_data = getData();
 
-        // Set domain
-        x.domain([0, d3.max(cooked_data, function (d) {
-            return d.x;
-        })]);
-
-        yRate.domain([0, d3.max(cooked_data.map(function (d) {
-            return d3.max([d.rateA, d.rateB]);
-        }))]);
-
-        yDF.domain([0, d3.max(cooked_data.map(function (d) {
-            return d3.max([d.DFA, d.DFB]);
-        }))]);
+        updateDomain();
 
         // Set axis ticks
         xAxis.tickValues(cooked_data.map(function (d) {
@@ -73,48 +79,47 @@ var graph = (function () {
         });
 
         // Draw graph
-        var line_rate_a = svg.append("path")
-            .attr("class", "line rate a")
-            .attr("d", lineRate(cooked_data.map(function (d) {
-                return {x: d.x, rate: d.rateA};
-            })));
+        svg.append("path").attr("class", "line rate a");
+        svg.append("path").attr("class", "line rate b");
+        svg.append("path").attr("class", "line DF a");
+        svg.append("path").attr("class", "line DF b");
 
-        svg.append("path")
-            .attr("class", "line rate b")
-            .attr("d", lineRate(cooked_data.map(function (d) {
-                return {x: d.x, rate: d.rateB};
-            })));
+        updateCurve();
 
-        svg.append("path")
-            .attr("class", "line DF a")
-            .attr("d", lineDF(cooked_data.map(function (d) {
-                return {x: d.x, DF: d.DFA};
-            })));
-
-        svg.append("path")
-            .attr("class", "line DF b")
-            .attr("d", lineDF(cooked_data.map(function (d) {
-                return {x: d.x, DF: d.DFB};
-            })));
+        // append the rectangle to capture mouse
+        svg.append("rect")
+            .attr("id", "hover-mask")
+            .attr("width", svg_width)
+            .attr("height", svg_height)
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .on("mouseover", function () {
+                focus.style("display", null);
+            })
+            .on("mouseout", function () {
+                focus.style("display", "none");
+            })
+            .on("mousemove", function () {
+                mousemove.bind(this)(cooked_data);
+            });
 
         // Draw the scatterplot
-        updateOrCreateDots(cooked_data);
+        updateDot(cooked_data);
 
         // Draw axis
         svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + (svg_height - margin.bottom) + ")")
-            .call(xAxis);
+            .attr("transform", "translate(0," + (svg_height - margin.bottom) + ")");
 
         svg.append("g")
             .attr("class", "y rate axis")
-            .attr("transform", "translate(" + (margin.left) + ",0)")
-            .call(yRateAxis);
+            .attr("transform", "translate(" + (margin.left) + ",0)");
 
         svg.append("g")
             .attr("class", "y DF axis")
-            .attr("transform", "translate(" + (margin.left) + ",0)")
-            .call(yDFAxis);
+            .attr("transform", "translate(" + (margin.left) + ",0)");
+
+        updateAxis();
 
         // Add yAxis labels
         svg.append("text")
@@ -131,22 +136,12 @@ var graph = (function () {
     }
 
     function update() {
-        init();
-
-        var cooked_data = getData();
+        updateSize();
+        updateFunc();
+        cooked_data = getData();
 
         // Set domain
-        x.domain([0, d3.max(cooked_data, function (d) {
-            return d.x;
-        })]);
-
-        yRate.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
-            return [d.rateA, d.rateB];
-        }))));
-
-        yDF.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
-            return [d.DFA, d.DFB];
-        }))));
+        updateDomain();
 
         // Set axis ticks
         xAxis.tickValues(cooked_data.map(function (d) {
@@ -158,9 +153,51 @@ var graph = (function () {
         /**
          * Change graph
          */
-        var svg = d3.select("svg#graph").transition().duration(750);
+        svg.transition().duration(750);
+
 
         // Change curves
+        updateCurve();
+
+        // Update hover mask
+        svg.select("rect#hover-mask")
+            .attr("width", svg_width)
+            .attr("height", svg_height);
+
+        // Change dots
+        updateDot(cooked_data);
+
+        // Change axis
+        updateAxis();
+    }
+
+    function updateDomain() {
+        // Set domain
+        x.domain([0, d3.max(cooked_data, function (d) {
+            return d.x;
+        })]);
+
+        yRate.domain([0, d3.max(cooked_data.map(function (d) {
+            return d3.max([d.rateA, d.rateB]);
+        }))]);
+
+        yDF.domain([0, d3.max(cooked_data.map(function (d) {
+            return d3.max([d.DFA, d.DFB]);
+        }))]);
+    }
+
+    function updateAxis() {
+        svg.select(".x.axis")
+            .call(xAxis);
+
+        svg.select(".y.rate.axis")
+            .call(yRateAxis);
+
+        svg.select(".y.DF.axis")
+            .call(yDFAxis);
+    }
+
+    function updateCurve() {
         svg.select(".line.rate.a")
             .attr("d", lineRate(cooked_data.map(function (d) {
                 return {x: d.x, rate: d.rateA};
@@ -180,30 +217,14 @@ var graph = (function () {
             .attr("d", lineDF(cooked_data.map(function (d) {
                 return {x: d.x, DF: d.DFB};
             })));
-
-        // Change dots
-        updateOrCreateDots(cooked_data);
-
-        // Change axis
-        svg.select(".x.axis")
-            .call(xAxis);
-
-        svg.select(".y.rate.axis")
-            .call(yRateAxis);
-
-        svg.select(".y.DF.axis")
-            .call(yDFAxis);
     }
 
 
-    function updateOrCreateDots(cooked_data) {
+    function updateDot() {
         var normal_radius = 2,
             highlight_radius = 3;
 
-        var t = d3.transition()
-            .duration(750);
-
-        var dot_rate = svg.selectAll(".rate.dot")
+        var dot_rate = svg.selectAll("circle.rate.dot")
             .data([].concat.apply([], cooked_data.map(function (d) {
                 return [{x: d.x, y: d.rateA}, {x: d.x, y: d.rateB}];
             })));
@@ -238,7 +259,6 @@ var graph = (function () {
 
         dot_rate.classed('update', true)
             .attr("r", highlight_radius)
-            .transition(t)
             .attr("cx", function (d) {
                 return x(d.x);
             })
@@ -274,7 +294,6 @@ var graph = (function () {
 
         dot_DF.classed('update', true)
             .attr("r", highlight_radius)
-            .transition(t)
             .attr("cx", function (d) {
                 return x(d.x);
             })
@@ -297,6 +316,21 @@ var graph = (function () {
             })
             .on("mouseout", hideTooltip);
     }
+
+    function mousemove(data) {
+        var x0 = x.invert(d3.mouse(this)[0]),
+            i = bisectDate(data, x0, 1),
+            d0 = data[i - 1],
+            d1 = data[i];
+        if (!(d0 && d1)) return false;
+        var d = x0 - d0.x > d1.x - x0 ? d1 : d0;
+
+        focus.select("line.hover")
+            .attr("x1", x(d.x))
+            .attr("x2", x(d.x))
+            .attr("y1", yRate(d3.max([d.rateA, d.rateB])));
+    }
+
 
     function getData() {
         var raw_data = {};
@@ -329,7 +363,7 @@ var graph = (function () {
 })(jQuery);
 
 
-/* y Axis from 0
+/*
  hover vertical line
  space first column center ...
  */

@@ -96,12 +96,8 @@
     </div>
 
     <div class="row" style="margin-top: 40px;">
-        <div class="col-xs-12">
-            <svg id="graph" width="100%" height="360"></svg>
+        <div class="col-xs-12" id="graph">
         </div>
-
-        <hr/>
-
     </div>
 
     <script id="template-table-row" type="x-tmpl-mustache">
