@@ -57,13 +57,13 @@ var graph = (function () {
             return d.x;
         })]);
 
-        yRate.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
-            return [d.rateA, d.rateB];
-        }))));
+        yRate.domain([0, d3.max(cooked_data.map(function (d) {
+            return d3.max([d.rateA, d.rateB]);
+        }))]);
 
-        yDF.domain(d3.extent([].concat.apply([], cooked_data.map(function (d) {
-            return [d.DFA, d.DFB];
-        }))));
+        yDF.domain([0, d3.max(cooked_data.map(function (d) {
+            return d3.max([d.DFA, d.DFB]);
+        }))]);
 
         // Set axis ticks
         xAxis.tickValues(cooked_data.map(function (d) {
@@ -330,7 +330,6 @@ var graph = (function () {
 
 
 /* y Axis from 0
- Tootips %, padding 0
  hover vertical line
  space first column center ...
  */
