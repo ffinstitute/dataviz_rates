@@ -23,13 +23,6 @@
 
 <body>
 <div class='container bs-docs-container'>
-
-    <h2 class="caption">
-        <a href='https://first-finance.institute' target=_blank>
-            <img src='img/logo_ffi_32px.png' title='First Finance Institute' style="vertical-align: top"/>
-        </a>
-        Swap Curves and Discount Factors</h2>
-    <hr/>
     <label class="start-date">Today: <input type="text" class="form-control" data-provide="datepicker"
                                             data-date-format="dd/mm/yyyy"
                                             data-date-autoclose="true" id="startDate" readonly></label>
@@ -136,6 +129,15 @@
                                      maxlength="5"></td>
             <td class="df b text-right">0.0000000000</td>
         </tr>
+    </script>
+
+    <script id="template-header" type="x-tmpl-mustache">
+        <h2 class="caption">
+            <a href='https://first-finance.institute' target=_blank>
+                <img src='img/logo_ffi_32px.png' title='First Finance Institute' style="vertical-align: top"/>
+            </a>
+            Swap Curves and Discount Factors</h2>
+        <hr/>
     </script>
 
     <script src="js/main.js"></script>

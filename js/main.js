@@ -239,6 +239,32 @@ var rates = (function () {
         return true;
     }
 
+    function loadHeader() {
+        var rendered = Mustache.render($('#template-header').html());
+        $('div.container').prepend(rendered);
+    }
+
+    function showPage() {
+        $("div.container").css("opacity", "1");
+    }
+
+    function getURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+
+    function isInCourse() {
+        var in_course = getURLParameter("in_course");
+        return in_course ? true : false;
+    }
+
+
     /**
      * Main procedure
      */
@@ -310,6 +336,12 @@ var rates = (function () {
         $(window).resize(function () {
             graph.update();
         });
+
+        if (!isInCourse()) {
+            loadHeader();
+        }
+        showPage();
+
     });
 
     return {
