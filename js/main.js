@@ -249,11 +249,14 @@ var rates = (function () {
     }
 
     function getURLParameter(sParam) {
+        if (!sParam) return;
+        sParam = sParam.trim().toLowerCase();
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
         for (var i = 0; i < sURLVariables.length; i++) {
             var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) {
+            var thisParam = sParameterName[0] ? sParameterName[0].trim().toLowerCase() : false;
+            if (thisParam == sParam) {
                 return sParameterName[1];
             }
         }
