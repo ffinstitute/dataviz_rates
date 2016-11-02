@@ -13,7 +13,7 @@ label.start-date, input#startDate {
 
 input#startDate {
     width: 88px;
-    background-color: #fff;
+    background-color: transparent;
     color: #000;
     cursor: pointer;
     display: inline-block;
@@ -61,6 +61,10 @@ input.rate {
     border-top-width: 0;
 }
 
+#tableA {
+    margin: -19px auto 0 auto;
+}
+
 #tableA thead tr.space td {
     padding-bottom: 10px;
 }
@@ -102,6 +106,10 @@ input.rate {
     width: 50%;
 }
 
+#tableA tbody td {
+    color: #999;
+}
+
 .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th, tr.highlight {
     background-color: #e5e5e5;
 }
@@ -117,6 +125,7 @@ input.error {
 #tableA thead tr:first-child td.options {
     position: relative;
 }
+
 #tableA thead tr:first-child td.options:before {
     background: #f6f7f7;
     content: "";

@@ -36,7 +36,7 @@
 
     <div class=row>
         <div class='col-xs-12'>
-            <table width="100%" id="tableA" class="table-hover table-inputs">
+            <table width="440" id="tableA" class="table-hover table-inputs">
                 <thead>
                 <tr>
                     <td colspan="2"></td>

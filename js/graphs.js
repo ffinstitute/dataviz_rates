@@ -125,13 +125,13 @@ var graph = (function () {
 
         // Add yAxis labels
         svg.append("text")
-            .attr("x", ( margin.middle - margin.top * 3 + margin.bottom - svg_height) / 4 - 25)
+            .attr("x", -margin.top - 49)
             .attr("y", 13)
             .attr("transform", "rotate(270)")
             .text("Rate %");
 
         svg.append("text")
-            .attr("x", (margin.bottom - svg_height - margin.middle / 3 - margin.top / 3 ) / 4 * 3 - 52)
+            .attr("x", (margin.bottom - svg_height - margin.middle / 3 - margin.top / 3 ) / 4 * 3 - 2)
             .attr("y", 13)
             .attr("transform", "rotate(270)")
             .text("Discount Factor");
@@ -378,8 +378,3 @@ var graph = (function () {
         updateHoverLine: updateHoverLine
     }
 })(jQuery);
-
-
-/*
- space first column center ...
- */
