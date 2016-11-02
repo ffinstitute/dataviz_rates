@@ -7,6 +7,21 @@ h2.caption {
     white-space: nowrap;
 }
 
+label.start-date, input#startDate {
+    font-size: 12px;
+}
+
+input#startDate {
+    width: 88px;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    box-shadow: none;
+    padding: 0 5px;
+}
+
 .options .btn-group {
     width: 100%;
 }
@@ -40,7 +55,7 @@ h2.caption {
 }
 
 input.rate {
-    padding-right: 3px;
+    padding: 0 3px 0 0;
     border-radius: 0;
     text-align: right;
     border-top-width: 0;
@@ -84,15 +99,7 @@ input.rate {
 }
 
 #tableA .separator {
-    width: 10%;
-}
-
-input#startDate {
-    width: 88px;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 0;
-    display: inline-block;
+    width: 50%;
 }
 
 .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th, tr.highlight {
@@ -102,6 +109,24 @@ input#startDate {
 input.error {
     color: white;
     background-color: #cc0000;
+}
+
+/**
+* Table decoration
+*/
+#tableA thead tr:first-child td.options {
+    position: relative;
+}
+#tableA thead tr:first-child td.options:before {
+    background: #f6f7f7;
+    content: "";
+    height: 389px;
+    width: 169px;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    border: #e0e0e0 1px solid;
+    z-index: -1;
 }
 
 .red {

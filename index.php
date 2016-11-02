@@ -30,21 +30,19 @@
         </a>
         Swap Curves and Discount Factors</h2>
     <hr/>
+    <label class="start-date">Today: <input type="text" class="form-control" data-provide="datepicker"
+                                            data-date-format="dd/mm/yyyy"
+                                            data-date-autoclose="true" id="startDate" readonly></label>
+
     <div class=row>
         <div class='col-xs-12'>
             <table width="100%" id="tableA" class="table-hover table-inputs">
                 <thead>
                 <tr>
-                    <th colspan="2" class="text-right">Start Date</th>
-                    <td colspan="5">
-                        <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy"
-                               data-date-autoclose="true" id="startDate" readonly>
-                    </td>
-                </tr>
-                <tr class="options">
-                    <th colspan="2" class="text-right">Money Rates</th>
-                    <td colspan="2">
-                        <div class="btn-group btn-group-xs money red a" data-toggle="buttons">
+                    <td colspan="2"></td>
+                    <td class="separator"></td>
+                    <td class="options" colspan="2">
+                        <div class="btn-group btn-group-xs money red a" data-toggle="buttons" title="Money Rates">
                             <label class="btn btn-default active">
                                 <input type="radio" name="option0" autocomplete="off" checked>act/360
                             </label>
@@ -53,9 +51,9 @@
                             </label>
                         </div>
                     </td>
-                    <th class="separator text-right">Money Rates</th>
-                    <td colspan="2">
-                        <div class="btn-group btn-group-xs money blue b" data-toggle="buttons">
+                    <td class="separator"></td>
+                    <td class="options" colspan="2">
+                        <div class="btn-group btn-group-xs money blue b" data-toggle="buttons" title="Money Rates">
                             <label class="btn btn-default active">
                                 <input type="radio" name="option1" autocomplete="off" checked>act/360
                             </label>
@@ -64,12 +62,12 @@
                             </label>
                         </div>
                     </td>
-
                 </tr>
-                <tr class="options">
-                    <th colspan="2" class="text-right">Swap Rates</th>
-                    <td colspan="2">
-                        <div class="btn-group btn-group-xs swap red a" data-toggle="buttons">
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="separator"></td>
+                    <td class="options" colspan="2">
+                        <div class="btn-group btn-group-xs swap red a" data-toggle="buttons" title="Swap Rates">
                             <label class="btn btn-default active">
                                 <input type="radio" name="option2" autocomplete="off" checked>30/360
                             </label>
@@ -81,9 +79,9 @@
                             </label>
                         </div>
                     </td>
-                    <th class="separator text-right">Swap Rates</th>
-                    <td colspan="2">
-                        <div class="btn-group btn-group-xs swap blue b" data-toggle="buttons">
+                    <td class="separator"></td>
+                    <td class="options" colspan="2">
+                        <div class="btn-group btn-group-xs swap blue b" data-toggle="buttons" title="Swap Rates">
                             <label class="btn btn-default active">
                                 <input type="radio" name="option3" autocomplete="off" checked>30/360
                             </label>
@@ -100,8 +98,9 @@
                     <td colspan="6"></td>
                 </tr>
                 <tr>
-                    <th class="t">t</th>
+                    <th class="t text-center">t</th>
                     <th class="text-center">#days</th>
+                    <th class="separator"></th>
                     <th class="text-right red">Rate %</th>
                     <th class="text-right red">Discount Factor</th>
                     <th class="separator"></th>
@@ -124,8 +123,9 @@
 
     <script id="template-table-row" type="x-tmpl-mustache">
         <tr data-m="{{ m }}" data-y="{{ y }}" data-t="{{ t }}">
-            <td class="t" title="{{ t_full }}">{{ t }}</td>
+            <td class="t text-center" title="{{ t_full }}">{{ t }}</td>
             <td class="days text-center"></td>
+            <td class="separator"></td>
             <td class="input"><input type="text" class="form-control rate a" tabindex="1" value="{{ rate_a }}"
                                      data-old_value="{{ rate_a }}"
                                      maxlength="5"></td>
